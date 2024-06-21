@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# Bootstrap a simple relocatable python installation using miniforge
+cbdep install -d tools miniforge3 24.3.0-0
+#$(pwd)/tools/miniforge3-24.3.0-0/bin/conda create -y -p python python==3.10
+export PATH=$(pwd)/tools/miniforge3-24.3.0-0/bin:${PATH}
+type python3
+
+# Finally invoke the PRODUCT's python-tools build script
+${WORKSPACE}/${PROD_NAME}/build_${PROD_NAME}
