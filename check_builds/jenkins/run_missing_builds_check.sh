@@ -21,6 +21,6 @@ docker run --rm -u couchbase \
     -v /home/couchbase/check_builds/check_builds.ini:/etc/check_builds.ini \
     -v /san/latestbuilds:/home/couchbase/latestbuilds \
     couchbasebuild/check-builds \
-        check_builds \
+        check_builds -v \
         -c /etc/check_builds.ini \
         product-metadata
