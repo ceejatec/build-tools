@@ -19,11 +19,15 @@ then
 else
     echo "No tag $VERSION, assuming master"
 fi
+git checkout 7f5a44050b62b96b711f4afcc4bb9585246ee904
 
 # don't need to scan examples
 rm -rf examples
 
-mvn --batch-mode dependency:resolve
-mvn --batch-mode -Dmaven.test.skip=true -Dmaven.javadoc.skip=true install
+# Tell BD's custom settings.xml to skip the Couchbase maven cache for snapshots
+export M2_MIRROROF="external:*,!central-portal-snapshots"
+
+mvn --batch-mode -Dmaven.repo.local=/home/couchbase/.m2/${PRODUCT}-repository dependency:resolve
+mvn --batch-mode -Dmaven.repo.local=/home/couchbase/.m2/${PRODUCT}-repository -Dmaven.test.skip=true -Dmaven.javadoc.skip=true install
 
 popd
