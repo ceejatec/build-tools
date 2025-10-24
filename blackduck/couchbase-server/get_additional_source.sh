@@ -45,7 +45,7 @@ create_analytics_poms() {
 # a reliable way to extract the CMake version from the source (because
 # CMake downloads themselves are inconsistent), so just hardcode a
 # recent CMake.
-CMAKE_VERSION=3.29.6
+CMAKE_VERSION=3.31.9
 NINJA_VERSION=1.10.2
 cbdep install -d "${WORKSPACE}/extra" cmake ${CMAKE_VERSION}
 cbdep install -d "${WORKSPACE}/extra" ninja ${NINJA_VERSION}
@@ -53,17 +53,10 @@ export PATH="${BUILD_DIR}/tlm/deps/maven.exploded/bin:${WORKSPACE}/extra/cmake-$
 export CB_MAVEN_REPO_LOCAL=~/.m2/repository
 export LANG=en_US.UTF-8
 
-if command -v yum; then
-  CB_DOWNLOAD_DEPS_PLATFORM="centos7;linux"
-elif command -v apt; then
-  CB_DOWNLOAD_DEPS_PLATFORM="ubuntu20.04;linux"
-fi
-
 rm -rf "${BUILD_DIR}"
 mkdir "${BUILD_DIR}"
 pushd "${BUILD_DIR}"
 cmake \
-  -D CB_DOWNLOAD_DEPS_PLATFORM="${CB_DOWNLOAD_DEPS_PLATFORM}" \
   -G Ninja \
   "${WORKSPACE}/src"
 
